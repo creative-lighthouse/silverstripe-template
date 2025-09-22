@@ -2,9 +2,12 @@
 
 namespace App\Elements;
 
-use DNADesign\Elemental\Models\BaseElement;
+use Override;
 use SilverStripe\Assets\Image;
 use SilverStripe\Forms\DropdownField;
+use SilverStripe\LinkField\Models\Link;
+use SilverStripe\LinkField\Form\LinkField;
+use DNADesign\Elemental\Models\BaseElement;
 
 /**
  * Class \App\Elements\TextImageElement
@@ -13,10 +16,10 @@ use SilverStripe\Forms\DropdownField;
  * @property string $Variant
  * @property string $Highlight
  * @property string $ImgWidth
- * @property string $ButtonText
- * @property string $ButtonLink
  * @property int $ImageID
- * @method \SilverStripe\Assets\Image Image()
+ * @property int $ButtonID
+ * @method Image Image()
+ * @method \SilverStripe\LinkField\Models\Link Button()
  */
 class TextImageElement extends BaseElement
 {
@@ -26,51 +29,69 @@ class TextImageElement extends BaseElement
         "Variant" => "Varchar(20)",
         "Highlight" => "Varchar(20)",
         "ImgWidth" => "Varchar(20)",
-        "ButtonText" => "Varchar(50)",
-        "ButtonLink" => "Varchar(500)"
     ];
 
     private static $has_one = [
         "Image" => Image::class,
+        "Button" => Link::class,
     ];
 
     private static $owns = [
-        "Image"
+        "Image",
+        "Button",
     ];
 
     private static $field_labels = [
         "Text" => "Text",
         "Image" => "Bild",
-        "ButtonText" => "Button Text",
-        "ButtonLink" => "Button Link"
+        "Button" => "Button",
     ];
 
     private static $table_name = 'TextImageElement';
     private static $icon = 'font-icon-block-promo-3';
 
+    #[Override]
     public function getType()
     {
         return "Text+Bild";
     }
 
+    #[Override]
+    public function getSummary(): string
+    {
+        return 'Element mit Text und Bild';
+    }
+
+    #[Override]
+    public function provideBlockSchema()
+    {
+        $blockSchema = parent::provideBlockSchema();
+        $blockSchema['content'] = $this->Text ? $this->dbObject('Text')->Plain() : "Kein Text";
+        return $blockSchema;
+    }
+
+    #[Override]
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();
         $fields->replaceField('Variant', new DropdownField('Variant', 'Variante', [
             "" => "Bild links",
-            "image-right" => "Bild rechts",
+            "image--right" => "Bild rechts",
         ]));
         $fields->replaceField('ImgWidth', new DropdownField('ImgWidth', 'Bildbreite', [
-            "image-30" => "30%",
-            "image-40" => "40%",
-            "image-50" => "50%",
-            "image-60" => "60%",
-            "image-70" => "70%",
+            "image--30" => "30%",
+            "image--40" => "40%",
+            "image--50" => "50%",
+            "image--60" => "60%",
+            "image--70" => "70%",
         ]));
         $fields->replaceField('Highlight', new DropdownField('Highlight', 'Highlight', [
             "" => "Kein Highlight",
             "highlighted" => "Highlight",
         ]));
+
+        $fields->removeByName('ButtonID');
+        $fields->addFieldToTab('Root.Main', LinkField::create('Button'));
         return $fields;
     }
 }

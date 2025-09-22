@@ -3,7 +3,7 @@
     <head>
         <% base_tag %>
         $MetaTags(false)
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta charset="utf-8">
         <title>$Title - $SiteConfig.Title</title>
@@ -39,7 +39,17 @@
             <% include Header %>
         </div>
         <main class="area_content main">
-                $Layout
+            <h1>Headline 1</h1>
+            <h2>Headline 2</h2>
+            <h3>Headline 3</h3>
+            <h4>Headline 4</h4>
+            <h5>Headline 5</h5>
+            <h6>Headline 6</h6>
+            <p>Paragraph</p>
+            <p><strong>Bold</strong></p>
+            <p><em>Italic</em></p>
+            <p><a href="#">Link</a></p>
+            <p><a href="#" class="link--button">Button</a></p>
         </main>
         <script type="module" src="$Vite("app/client/src/js/main.js")"></script>
         <div class="area_footer">

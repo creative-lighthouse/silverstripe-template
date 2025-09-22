@@ -1,4 +1,4 @@
-@import "fonts";
-@import "normalize";
-@import "variables";
-@import "typography";
+@use "fonts";
+@use "normalize";
+@use "variables" as *;
+@use "typography";

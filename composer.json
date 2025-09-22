@@ -1,20 +1,38 @@
 {
-    "name": "creative-lighthouse/silverstripe-template",
+    "name": "atwx/standard-silverstripe-template",
     "type": "silverstripe-recipe",
-    "description": "Default Silverstripe installation",
+    "description": "A default Silverstripe installation",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/wernerkrauss/silverstripe-pure-modal.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/atwx/silverstripe-projectinfo.git"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/wernerkrauss/silverstripe-ideannotator.git"
+        }
+    ],
     "require": {
-        "php": "^8.1",
-        "silverstripe/recipe-plugin": "^2",
-        "silverstripe/recipe-cms": "^5.1",
-        "dnadesign/silverstripe-elemental": "^5",
+        "php": "^8.4",
+        "silverstripe/recipe-cms": "^6.0",
+        "dnadesign/silverstripe-elemental": "^6.0",
+        "atwx/silverstripe-vitehelper": "^1.0",
         "ext-json": "*",
-        "colymba/gridfield-bulk-editing-tools": "^4.0",
-        "undefinedoffset/sortablegridfield": "^2.0",
-        "jonom/focuspoint": "^5.0"
+        "atwx/silverstripe-projectinfo": "dev-main",
+        "symbiote/silverstripe-gridfieldextensions": "^5.0",
+        "silverstripe/linkfield": "^5.0"
     },
     "require-dev": {
-        "silverleague/ideannotator": "^3",
-        "squizlabs/php_codesniffer": "^3.6"
+        "silverleague/ideannotator": "dev-silverstripe6 as 4.0",
+        "wernerkrauss/silverstripe-rector": "^1",
+        "cambis/silverstan": "^2",
+        "squizlabs/php_codesniffer": "^3",
+        "phpstan/extension-installer": "^1.0",
+        "phpunit/phpunit": "^11.5"
     },
     "autoload": {
         "psr-4": {
@@ -24,7 +42,8 @@
     "extra": {
         "expose": [
             "app/client/dist",
-            "app/client/icons"
+            "app/client/icons",
+            "app/client/images"
         ],
         "resources-dir": "_resources",
         "project-files-installed": [
@@ -45,13 +64,18 @@
     "minimum-stability": "dev",
     "scripts": {
         "lint": "vendor/bin/phpcs",
-        "fix": "vendor/bin/phpcbf"
+        "fix": "vendor/bin/phpcbf",
+        "rector": "vendor/bin/rector -v",
+        "rector-dry": "vendor/bin/rector -v --dry-run",
+        "phpstan": "vendor/bin/phpstan"
     },
     "config": {
         "allow-plugins": {
             "composer/installers": true,
             "silverstripe/recipe-plugin": true,
-            "silverstripe/vendor-plugin": true
+            "silverstripe/vendor-plugin": true,
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true
         }
     }
 }

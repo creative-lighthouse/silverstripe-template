@@ -1,6 +1,7 @@
-<div class="footer">
+<footer>
     <div class="footer_content">
-        <div class="footer_text">Music and Light Ahrensburg © 2022</div>
+        <div class="footer_text">Beispieltext</div>
+        <div class="footer_text">Anderer Beispieltext</div>
         <div class="footer_menu">
             <ul role="list" class="footer_menu_list w-list-unstyled">
                 <% loop $Menu(1) %>
@@ -13,4 +14,4 @@
             </ul>
         </div>
     </div>
-</div>
+</footer>

@@ -6,6 +6,10 @@
 /app/client/dist
 /node_modules
 
+public/_graphql/
+
 .graphql-generated/
 
-public/_graphql/
+public/assets/
+
+.vscode/
